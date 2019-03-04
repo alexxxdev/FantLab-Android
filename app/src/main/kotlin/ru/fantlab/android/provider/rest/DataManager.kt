@@ -160,9 +160,11 @@ object DataManager {
 			userId: Int,
 			page: Int = 1
 	): Single<BookcasesResponse> =
-			getUserBookcasesPath(userId, page)
+			//TODO replace with real call
+			getUserResponsesPath(userId, page, ResponsesSortOption.BY_DATE)
+			//getUserBookcasesPath(userId, page)
 					.httpGet()
-					.rx_object(BookcasesResponse.Deserializer(perPage = 50))
+					.rxObject(BookcasesResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 
 	fun getBookcaseEditions(
@@ -171,7 +173,7 @@ object DataManager {
 	): Single<BookcaseEditionsResponse> =
 			getBookcaseEditionsPath(bookcaseId, offset)
 					.httpGet()
-					.rx_object(BookcaseEditionsResponse.Deserializer(perPage = 50))
+					.rxObject(BookcaseEditionsResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 
 	fun sendUserMark(
